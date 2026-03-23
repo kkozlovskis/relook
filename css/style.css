@@ -2,6 +2,12 @@
   --color-nav-bar-text: #13887E;
   --color-text-normal: #151E42;
   --color-text-lighter: #4C66D0;
+
+  /* Animation timing — change these to adjust speed site-wide */
+  --hero-duration: 0.65s;       /* hero load animation duration */
+  --hero-delay-step: 0.13s;     /* delay between each hero element */
+  --reveal-duration: 0.55s;     /* scroll-reveal animation duration */
+  --reveal-stagger: 0.12s;      /* delay between staggered siblings (set in JS) */
 }
 
 body, h1, h2, h3, h4, h5, h6, p, span, a, li {
@@ -261,6 +267,7 @@ button.btn-primary {
     align-items: center;
     gap: 0;
     padding-bottom: 8px;
+    padding-right: 20px;
   }
 
   .mobile-lang-options .lang-option {
@@ -880,31 +887,32 @@ button.btn-primary {
 }
 
 #hero h1 {
-  animation: fadeUp 0.65s ease both;
+  animation: fadeUp var(--hero-duration) ease both;
 }
 
 #hero > .container > p {
-  animation: fadeUp 0.65s ease 0.15s both;
+  animation: fadeUp var(--hero-duration) ease calc(var(--hero-delay-step) * 1) both;
 }
 
 #hero .list-unstyled {
-  animation: fadeUp 0.65s ease 0.28s both;
+  animation: fadeUp var(--hero-duration) ease calc(var(--hero-delay-step) * 2) both;
 }
 
 #hero .btn-primary {
-  animation: fadeUp 0.65s ease 0.42s both;
+  animation: fadeUp var(--hero-duration) ease calc(var(--hero-delay-step) * 3) both;
 }
 
-/* --- Scroll reveal --- */
+/* --- Scroll reveal ---
+   Uses animation (not transition) so that after the reveal completes and
+   JS strips [data-reveal], each element returns to its own CSS rules —
+   hover transitions work normally again with no interference.          */
 [data-reveal] {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
 [data-reveal].is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  animation: fadeUp var(--reveal-duration) ease forwards;
 }
 
 /* Respect reduced-motion preference */
@@ -919,6 +927,9 @@ button.btn-primary {
   [data-reveal] {
     opacity: 1;
     transform: none;
-    transition: none;
+  }
+
+  [data-reveal].is-visible {
+    animation: none;
   }
 }

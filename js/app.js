@@ -33,6 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Hero button: clear animation after entrance so hover works ─────────────
+  document.querySelectorAll('#hero .btn-primary').forEach(btn => {
+    btn.addEventListener('animationend', () => {
+      btn.style.animation = 'none';
+    }, { once: true });
+  });
+
   // ── Scroll reveal ───────────────────────────────────────────────────────────
 
   // Single elements — reveal individually
@@ -64,6 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ── Stagger delay between siblings — matches --reveal-stagger in CSS ──────
+  const STAGGER_STEP = 0.12; // seconds — change here and in --reveal-stagger
+  const STAGGER_MAX  = 0.36; // cap so last item doesn't wait too long
+
   staggerSelectors.forEach(sel => {
     // Group by parent so each row/list staggers independently
     const groups = new Map();
@@ -77,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     groups.forEach(children => {
       children.forEach((el, i) => {
         el.dataset.reveal = '';
-        el.style.transitionDelay = Math.min(i * 0.12, 0.36) + 's';
+        el.style.animationDelay = Math.min(i * STAGGER_STEP, STAGGER_MAX) + 's';
       });
     });
   });
@@ -85,10 +96,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Observe all marked elements
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      el.classList.add('is-visible');
+      observer.unobserve(el);
+
+      // After the animation finishes, strip reveal attributes so the element
+      // returns to its natural CSS state — hover transitions work normally again
+      el.addEventListener('animationend', () => {
+        delete el.dataset.reveal;
+        el.classList.remove('is-visible');
+        el.style.animationDelay = '';
+      }, { once: true });
     });
   }, {
     threshold: 0.1,
