@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
   <title>Relook</title>
   <meta name="description" content="">
 
@@ -19,6 +20,9 @@
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="icon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="icon.png">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#12AEA1">
@@ -38,9 +42,10 @@
     <nav class="navbar navbar-expand-lg navbar-light py-5">
       <div class="container">
         <a class="navbar-brand" href="/">
-          <img src="img/relook.svg" alt="Relook" height="24">
+          <img src="img/relook.svg" alt="Relook" height="24" class="logo-default">
+          <img src="img/footer_logo.svg" alt="Relook" height="24" class="logo-white">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -51,7 +56,9 @@
             <li class="nav-item"><a class="nav-link" href="#experience">Pieredze</a></li>
             <li class="nav-item"><a class="nav-link" href="#prices">Cenas</a></li>
             <li class="nav-item"><a class="nav-link" href="#contacts">Kontakti</a></li>
-            <li class="nav-item dropdown custom-lang-dropdown">
+
+            <!-- Desktop language dropdown (hidden on mobile) -->
+            <li class="nav-item dropdown custom-lang-dropdown desktop-lang">
               <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="language" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="fi fi-lv me-2"></span> LV
               </a>
@@ -69,6 +76,26 @@
                   </a>
                 </li>
               </ul>
+            </li>
+
+            <!-- Mobile language selector (inline, shown in overlay) -->
+            <li class="nav-item mobile-lang">
+              <button class="lang-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#mobileLangOptions" aria-expanded="false" aria-controls="mobileLangOptions">
+                <span class="fi fi-lv"></span> LV
+                <span class="lang-arrow"></span>
+              </button>
+              <div class="collapse" id="mobileLangOptions">
+                <div class="mobile-lang-options">
+                  <a href="./" class="lang-option active-lang">
+                    <span class="check-icon ms-3"></span>
+                    Latviešu
+                  </a>
+                  <a href="en/" class="lang-option">
+                    <span class="check-icon ms-3"></span>
+                    English
+                  </a>
+                </div>
+              </div>
             </li>
           </ul>
         </div>
