@@ -113,9 +113,13 @@ button.btn-primary {
 }
 
 @media (max-width: 991.98px) {
-  /* Full-screen overlay */
-  .navbar-collapse.collapsing,
-  .navbar-collapse.show {
+  /*
+   * Position/layout is driven by .overlay-open / .overlay-closing on the
+   * navbar — never by Bootstrap's own .show / .collapsing — so the overlay
+   * stays fixed even during the 1-frame gap where Bootstrap swaps classes.
+   */
+  .navbar.overlay-open .navbar-collapse,
+  .navbar.overlay-closing .navbar-collapse {
     position: fixed;
     top: 0;
     left: 0;
@@ -131,49 +135,69 @@ button.btn-primary {
     padding: 80px 24px 40px;
   }
 
-  .navbar-collapse.collapsing {
-    transition: opacity 0.25s ease !important;
+  /* Fade in when opening */
+  .navbar.overlay-open .navbar-collapse.collapsing {
     opacity: 0;
+    transition: opacity 0.25s ease !important;
   }
 
-  .navbar-collapse.show {
+  .navbar.overlay-open .navbar-collapse.show {
     opacity: 1;
     transition: opacity 0.25s ease;
   }
 
+  /* Fade out when closing */
+  .navbar.overlay-closing .navbar-collapse {
+    opacity: 0;
+    transition: opacity 0.25s ease !important;
+    pointer-events: none;
+  }
+
   /* Brand and toggler float above the overlay */
   .navbar.overlay-open .navbar-brand,
-  .navbar.overlay-open .navbar-toggler {
+  .navbar.overlay-open .navbar-toggler,
+  .navbar.overlay-closing .navbar-brand,
+  .navbar.overlay-closing .navbar-toggler {
     position: relative;
     z-index: 1042;
   }
 
   /* Logo swap */
-  .navbar.overlay-open .logo-default {
+  .navbar.overlay-open .logo-default,
+  .navbar.overlay-closing .logo-default {
     display: none;
   }
 
-  .navbar.overlay-open .logo-white {
+  .navbar.overlay-open .logo-white,
+  .navbar.overlay-closing .logo-white {
     display: inline-block;
   }
 
-  /* Toggler: X icon when overlay open */
-  .navbar.overlay-open .navbar-toggler {
+  /* Toggler: X icon when overlay open or closing */
+  .navbar.overlay-open .navbar-toggler,
+  .navbar.overlay-closing .navbar-toggler {
     border-color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
   }
 
-  .navbar.overlay-open .navbar-toggler-icon {
+  .navbar.overlay-open .navbar-toggler {
+    pointer-events: auto;
+  }
+
+  .navbar.overlay-open .navbar-toggler-icon,
+  .navbar.overlay-closing .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cline x1='4' y1='4' x2='26' y2='26' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3e%3cline x1='26' y1='4' x2='4' y2='26' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3e%3c/svg%3e");
   }
 
   /* Nav links in overlay */
-  .navbar-collapse.show .navbar-nav {
+  .navbar.overlay-open .navbar-collapse .navbar-nav,
+  .navbar.overlay-closing .navbar-collapse .navbar-nav {
     width: 100%;
     align-items: center;
     gap: 0 !important;
   }
 
-  .navbar-collapse.show .navbar-nav > .nav-item > .nav-link {
+  .navbar.overlay-open .navbar-collapse .navbar-nav > .nav-item > .nav-link {
     color: #ffffff !important;
     font-size: 1.5rem !important;
     font-weight: 700 !important;
@@ -183,7 +207,7 @@ button.btn-primary {
     text-align: center;
   }
 
-  .navbar-collapse.show .navbar-nav > .nav-item > .nav-link:hover {
+  .navbar.overlay-open .navbar-collapse .navbar-nav > .nav-item > .nav-link:hover {
     color: #ffffff !important;
     opacity: 0.75;
   }
