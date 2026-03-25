@@ -1,13 +1,16 @@
 :root {
-  --color-nav-bar-text: #13887E;
-  --color-text-normal: #151E42;
-  --color-text-lighter: #4C66D0;
+  --color-primary:    #12AEA1;
+  --color-heading:    #374A99;
+  --color-nav-text:   #13887E;
+  --color-text:       #151E42;
+  --color-text-light: #4C66D0;
+  --shadow-card:      4px 4px 10px 0 rgba(76, 102, 208, 0.25);
 
   /* Animation timing — change these to adjust speed site-wide */
-  --hero-duration: 0.65s;       /* hero load animation duration */
-  --hero-delay-step: 0.13s;     /* delay between each hero element */
-  --reveal-duration: 0.55s;     /* scroll-reveal animation duration */
-  --reveal-stagger: 0.12s;      /* delay between staggered siblings (set in JS) */
+  --hero-duration:    0.65s;   /* hero load animation duration      */
+  --hero-delay-step:  0.13s;   /* delay between each hero element   */
+  --reveal-duration:  0.55s;   /* scroll-reveal animation duration  */
+  --reveal-stagger:   0.12s;   /* delay between staggered siblings  */
 }
 
 body, h1, h2, h3, h4, h5, h6, p, span, a, li {
@@ -29,9 +32,11 @@ body {
   background-color: #f8fafc;
 }
 
+/* ─── Typography ─────────────────────────────────────────────────────────── */
+
 section h1,
 section h2 {
-  color: #374a99;
+  color: var(--color-heading);
   font-weight: 300;
   font-size: 2.5rem;
   line-height: 1.2;
@@ -43,34 +48,37 @@ section h2 {
 }
 
 section h3 {
-  color: #374A99;
+  color: var(--color-heading);
   font-weight: 300;
   font-size: 1.8rem;
   margin-bottom: 20px;
 }
 
 .section-label {
-  color: var(--color-text-lighter);
+  color: var(--color-text-light);
   display: block;
   font-weight: 400;
   font-size: 1.1rem;
 }
 
-main section.py-5 {
-  padding-top: 80px !important;
-  padding-bottom: 80px !important;
+/* ─── Section Spacing ────────────────────────────────────────────────────── */
+
+main section {
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 @media (max-width: 768px) {
-  section {
-    padding-top: 50px !important;
-    padding-bottom: 50px !important;
+  main section {
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 }
 
-a.btn-primary,
-button.btn-primary {
-  background-color: #12AEA1;
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+
+.btn-primary {
+  background-color: var(--color-primary);
   border: none;
   padding: 15px 40px;
   font-weight: bold;
@@ -82,14 +90,16 @@ button.btn-primary {
   margin-top: 30px;
 }
 
-.btn.btn-primary:hover,
-.btn.btn-primary:active,
-.btn.btn-primary:focus {
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
   background-color: #17a095;
   border: none;
   transform: translateY(-2px);
   box-shadow: 0 12px 25px rgba(30, 178, 166, 0.4);
 }
+
+/* ─── Navbar ─────────────────────────────────────────────────────────────── */
 
 .navbar-toggler {
   border: none;
@@ -106,20 +116,16 @@ button.btn-primary {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(19,136,126,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* ============================================
-   Full-Screen Mobile Overlay Navbar
-   ============================================ */
+/* ─── Full-Screen Mobile Overlay ─────────────────────────────────────────────
+   Position/layout is driven by .overlay-open / .overlay-closing on the
+   navbar — never by Bootstrap's own .show / .collapsing — so the overlay
+   stays fixed even during the 1-frame gap where Bootstrap swaps classes.    */
 
 .logo-white {
   display: none;
 }
 
 @media (max-width: 991.98px) {
-  /*
-   * Position/layout is driven by .overlay-open / .overlay-closing on the
-   * navbar — never by Bootstrap's own .show / .collapsing — so the overlay
-   * stays fixed even during the 1-frame gap where Bootstrap swaps classes.
-   */
   .navbar.overlay-open .navbar-collapse,
   .navbar.overlay-closing .navbar-collapse {
     position: fixed;
@@ -127,7 +133,7 @@ button.btn-primary {
     left: 0;
     width: 100vw;
     height: 100vh !important;
-    background-color: #12AEA1;
+    background-color: var(--color-primary);
     z-index: 1040;
     display: flex !important;
     flex-direction: column;
@@ -261,7 +267,6 @@ button.btn-primary {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
     padding-bottom: 8px;
     padding-right: 20px;
   }
@@ -314,7 +319,7 @@ button.btn-primary {
 }
 
 .navbar .nav-link {
-  color: var(--color-nav-bar-text);
+  color: var(--color-nav-text);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -323,13 +328,14 @@ button.btn-primary {
 }
 
 .navbar .nav-link:hover {
-  /* TODO: add correct color */
-  color: #12AEA1;
+  color: var(--color-primary);
 }
 
 .navbar .nav-link.dropdown-toggle {
-  color: var(--color-text-normal);
+  color: var(--color-text);
 }
+
+/* ─── Language Dropdown ───────────────────────────────────────────────────── */
 
 .custom-lang-dropdown .dropdown-toggle::after {
   display: inline-block;
@@ -341,8 +347,8 @@ button.btn-primary {
   transform-origin: center center;
   transition: none;
   border: 0 none;
-  border-right: 2px solid var(--color-nav-bar-text);
-  border-bottom: 2px solid var(--color-nav-bar-text);
+  border-right: 2px solid var(--color-nav-text);
+  border-bottom: 2px solid var(--color-nav-text);
   vertical-align: middle;
 }
 
@@ -363,23 +369,21 @@ button.btn-primary {
 }
 
 .custom-lang-dropdown .dropdown-item {
-  color: var(--color-text-normal);
+  color: var(--color-text);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 10px 0;
   display: flex;
   align-items: center;
-  background: transparent !important;
-  transition: color 0.2s ease;
-
   justify-content: flex-end;
   text-align: right;
+  background: transparent !important;
+  transition: color 0.2s ease;
 }
 
 .custom-lang-dropdown .dropdown-item:hover {
-  /*  TODO: is this correct? */
-  color: var(--color-nav-bar-text);
+  color: var(--color-nav-text);
 }
 
 .custom-lang-dropdown .check-icon {
@@ -395,7 +399,7 @@ button.btn-primary {
   content: '';
   width: 6px;
   height: 16px;
-  border: solid var(--color-text-lighter);
+  border: solid var(--color-text-light);
   border-width: 0 2.5px 2.5px 0;
   transform: rotate(45deg);
   display: block;
@@ -406,8 +410,10 @@ button.btn-primary {
 }
 
 .custom-lang-dropdown .dropdown-item.active {
-  color: var(--color-text-normal);
+  color: var(--color-text);
 }
+
+/* ─── Body Copy ──────────────────────────────────────────────────────────── */
 
 #hero p,
 #experience p:not(.section-label),
@@ -419,7 +425,7 @@ button.btn-primary {
 #benefits p,
 #contacts p:not(.section-label) {
   font-size: 16px;
-  color: var(--color-text-normal);
+  color: var(--color-text);
   font-weight: 400;
   line-height: 1.6;
   max-width: 650px;
@@ -434,7 +440,7 @@ button.btn-primary {
 }
 
 #hero ul li strong {
-  color: var(--color-text-lighter);
+  color: var(--color-text-light);
   font-weight: 500;
   font-size: 1.1rem;
 }
@@ -450,19 +456,11 @@ button.btn-primary {
   padding-bottom: 52px;
 }
 
-#profiles .row {
-  /*TODO: test this max-width looks like it breaks some thing on mobile */
-  /*--bs-gutter-x: 100px;*/
-  /*--bs-gutter-y: 100px;*/
-}
+/* ─── Cards (shared) ─────────────────────────────────────────────────────── */
 
-#profiles .container {
-  /*TODO: test this max-width looks like it breaks some thing on mobile */
-  /*max-width: 1200px;*/
-  /*margin: 0 auto;*/
-}
-
-.profile-card {
+.profile-card,
+#prices .price-card,
+#privacy .card {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 24px;
   padding: 45px 50px;
@@ -470,20 +468,27 @@ button.btn-primary {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  box-shadow: 4px 4px 10px 0 rgba(76, 102, 208, 0.25);
+  box-shadow: var(--shadow-card);
   transition: transform 0.3s ease;
   cursor: default;
 }
 
-.profile-card:hover {
+.profile-card:hover,
+#prices .price-card:hover,
+#privacy .card:hover {
   transform: translateY(-5px);
-  border-color: #374A99;
+  border-color: var(--color-heading);
 }
 
-#services .row {
-  /*TODO: test this max-width looks like it breaks some thing on mobile */
-  /*--bs-gutter-y: 40px;*/
+@media (max-width: 768px) {
+  .profile-card,
+  #prices .price-card,
+  #privacy .card {
+    padding: 35px 25px;
+  }
 }
+
+/* ─── Services ───────────────────────────────────────────────────────────── */
 
 #services ul {
   display: flex;
@@ -496,20 +501,22 @@ button.btn-primary {
 #services ul li {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 23px;
-  box-shadow: 4px 4px 10px 0 rgba(76, 102, 208, 0.25);
+  box-shadow: var(--shadow-card);
   transition: transform 0.3s ease;
-  padding: 24px 24px;
+  padding: 24px;
   cursor: default;
   font-size: 16px;
-  color: var(--color-text-normal);
+  color: var(--color-text);
   font-weight: 400;
   line-height: 1.6;
 }
 
 #services ul li:hover {
   transform: translateX(5px);
-  border-color: #374A99;
+  border-color: var(--color-heading);
 }
+
+/* ─── Experience Stats ───────────────────────────────────────────────────── */
 
 .stat-card {
   background-color: rgba(255, 255, 255, 0.5);
@@ -520,17 +527,17 @@ button.btn-primary {
   flex-direction: column;
   justify-content: center;
   transition: transform 0.3s ease;
-  box-shadow: 4px 4px 10px 0 rgba(76, 102, 208, 0.25);
+  box-shadow: var(--shadow-card);
   cursor: default;
 }
 
 .stat-card:hover {
   transform: translateY(-5px);
-  border-color: #374A99;
+  border-color: var(--color-heading);
 }
 
 .stat-card h3 {
-  color: var(--color-text-lighter);
+  color: var(--color-text-light);
   font-size: 3rem;
   font-weight: 300;
   margin-bottom: 10px;
@@ -549,39 +556,15 @@ button.btn-primary {
   }
 }
 
-#prices .row {
-  /*TODO: test this max-width looks like it breaks some thing on mobile */
-  /*--bs-gutter-x: 150px;*/
-  /*--bs-gutter-y: 100px;*/
-}
+/* ─── Pricing ────────────────────────────────────────────────────────────── */
 
 #prices .section-subtitle,
 #prices .title {
-  color: #374A99;
+  color: var(--color-heading);
   font-weight: 300;
   font-size: 1.5rem;
   margin-top: 16px;
   margin-bottom: 0;
-}
-
-#prices .price-card,
-#privacy .card {
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 24px;
-  padding: 45px 50px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  box-shadow: 4px 4px 10px 0 rgba(76, 102, 208, 0.25);
-  transition: transform 0.3s ease;
-  cursor: default;
-}
-
-#prices .price-card:hover,
-#privacy .card:hover {
-  transform: translateY(-5px);
-  border-color: #374A99;
 }
 
 #prices ul,
@@ -596,7 +579,7 @@ button.btn-primary {
   padding-left: 20px;
   margin-bottom: 10px;
   font-size: 16px;
-  color: var(--color-text-normal);
+  color: var(--color-text);
   font-weight: 400;
   line-height: 1.6;
   max-width: 650px;
@@ -618,12 +601,12 @@ button.btn-primary {
 .price-tag {
   font-size: 1.25rem;
   font-weight: 500;
-  color: var(--color-text-normal);
+  color: var(--color-text);
   margin-bottom: 20px;
 }
 
 .discount {
-  color: #374A99;
+  color: var(--color-heading);
   font-weight: 500;
   font-size: 2rem;
 }
@@ -636,16 +619,7 @@ button.btn-primary {
   font-weight: 200;
 }
 
-@media (max-width: 768px) {
-  #prices {
-    padding: 60px 0;
-  }
-
-  #prices .price-card,
-  #privacy .card {
-    padding: 35px 25px;
-  }
-}
+/* ─── Testimonials ───────────────────────────────────────────────────────── */
 
 .testimonial-card {
   background-color: rgba(255, 255, 255, 0.5);
@@ -654,7 +628,7 @@ button.btn-primary {
   height: 100%;
   display: flex;
   gap: 20px;
-  box-shadow: 4px 4px 10px 0 rgba(76, 102, 208, 0.25);
+  box-shadow: var(--shadow-card);
   transition: transform 0.3s ease;
   cursor: default;
   align-items: center;
@@ -662,18 +636,13 @@ button.btn-primary {
 
 .testimonial-card:hover {
   transform: translateY(-5px);
-  border-color: #374A99;
-}
-
-.testimonial-logo {
-  flex-shrink: 0;
-  margin-top: 0;
+  border-color: var(--color-heading);
 }
 
 .testimonial-content h3 {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-text-normal);
+  color: var(--color-text);
   margin-bottom: 20px;
 }
 
@@ -696,12 +665,6 @@ button.btn-primary {
   transform: translateY(-5px);
 }
 
-@media (max-width: 768px) {
-  .client-logos-grid {
-    gap: 30px;
-  }
-}
-
 @media (min-width: 992px) {
   .testimonial-row-1 {
     padding-left: 5%;
@@ -718,6 +681,10 @@ button.btn-primary {
 }
 
 @media (max-width: 768px) {
+  .client-logos-grid {
+    gap: 30px;
+  }
+
   .testimonial-card {
     flex-direction: column;
     align-items: flex-start;
@@ -736,6 +703,8 @@ button.btn-primary {
   }
 }
 
+/* ─── Contact Form ───────────────────────────────────────────────────────── */
+
 #contacts .container p:not(.section-label) {
   margin: 0 auto 40px;
 }
@@ -748,7 +717,7 @@ button.btn-primary {
   border: 1px solid #31479C;
   border-radius: 12px;
   padding: 12px 20px;
-  color: var(--color-text-normal);
+  color: var(--color-text);
 }
 
 .custom-input::placeholder {
@@ -757,8 +726,8 @@ button.btn-primary {
 
 .custom-input:focus {
   outline: none;
-  border-color: #12AEA1;
-  box-shadow: 0 0 0 .25rem rgba(26, 179, 157, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.25rem rgba(26, 179, 157, 0.2);
   background-color: #fff;
 }
 
@@ -772,7 +741,7 @@ button.btn-primary {
   appearance: none;
   width: 22px;
   height: 22px;
-  border: 2px solid #12AEA1;
+  border: 2px solid var(--color-primary);
   border-radius: 50%;
   cursor: pointer;
   position: relative;
@@ -782,7 +751,7 @@ button.btn-primary {
 .custom-radio input[type="radio"]:checked::after {
   content: "✓";
   position: absolute;
-  color: #12AEA1;
+  color: var(--color-primary);
   font-size: 14px;
   font-weight: bold;
   left: 50%;
@@ -796,7 +765,7 @@ button.btn-primary {
 
 .custom-radio input[type="radio"]:checked {
   background-color: transparent;
-  border-color: #12AEA1;
+  border-color: var(--color-primary);
 }
 
 .custom-radio input[type="radio"]:active {
@@ -806,7 +775,7 @@ button.btn-primary {
 .custom-radio label {
   font-weight: 600;
   font-size: 14px;
-  color: var(--color-text-normal);
+  color: var(--color-text);
   cursor: pointer;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -834,9 +803,9 @@ button.btn-primary {
   50%       { opacity: 0.6; }
 }
 
-.btn.btn-primary.btn--sending,
-.btn.btn-primary.btn--sending:hover,
-.btn.btn-primary.btn--sending:focus {
+.btn-primary.btn--sending,
+.btn-primary.btn--sending:hover,
+.btn-primary.btn--sending:focus {
   background-color: #0e9088;
   box-shadow: 0 6px 14px rgba(30, 178, 166, 0.2);
   transform: none;
@@ -844,8 +813,10 @@ button.btn-primary {
   animation: btnPulse 1.2s ease-in-out infinite;
 }
 
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
+
 .footer-section {
-  background-color: #12AEA1;
+  background-color: var(--color-primary);
   color: #FFFFFF;
 }
 
@@ -895,27 +866,26 @@ button.btn-primary {
   }
 }
 
+/* ─── Privacy Page ───────────────────────────────────────────────────────── */
 
 #privacy .card {
   border: none;
 }
 
-/* ============================================
-   Page Animations
-   ============================================ */
+/* ─── Page Animations ────────────────────────────────────────────────────── */
 
-/* --- Hero: animate on load --- */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(22px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Hero: animate on load */
 #hero h1 {
   animation: fadeUp var(--hero-duration) ease both;
 }
 
 #hero > .container > p {
-  animation: fadeUp var(--hero-duration) ease calc(var(--hero-delay-step) * 1) both;
+  animation: fadeUp var(--hero-duration) ease var(--hero-delay-step) both;
 }
 
 #hero .list-unstyled {
@@ -926,10 +896,9 @@ button.btn-primary {
   animation: fadeUp var(--hero-duration) ease calc(var(--hero-delay-step) * 3) both;
 }
 
-/* --- Scroll reveal ---
-   Uses animation (not transition) so that after the reveal completes and
-   JS strips [data-reveal], each element returns to its own CSS rules —
-   hover transitions work normally again with no interference.          */
+/* Scroll reveal — uses animation (not transition) so that after the reveal
+   completes and JS strips [data-reveal], each element returns to its own CSS
+   rules and hover transitions work normally again with no interference.      */
 [data-reveal] {
   opacity: 0;
   transform: translateY(22px);

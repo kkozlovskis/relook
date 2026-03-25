@@ -1,3 +1,5 @@
+const WEB3FORMS_KEY = 'c8c8f1f3-4fd2-4e99-bdc4-45e4c10acc95';
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ── Navbar overlay ─────────────────────────────────────────────────────────
@@ -115,8 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
-
-  const WEB3FORMS_KEY = 'c8c8f1f3-4fd2-4e99-bdc4-45e4c10acc95';
 
   const form = document.getElementById('contact-form');
   if (form) {
