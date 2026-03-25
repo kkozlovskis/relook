@@ -30,6 +30,13 @@ body, h1, h2, h3, h4, h5, h6, p, span, a, li {
 
 body {
   background-color: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 /* ─── Typography ─────────────────────────────────────────────────────────── */
@@ -818,6 +825,7 @@ main section {
 .footer-section {
   background-color: var(--color-primary);
   color: #FFFFFF;
+  margin-top: 5rem;
 }
 
 .footer-section a {
