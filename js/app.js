@@ -116,40 +116,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
 
-  emailjs.init({ publicKey: '9uK_v5GaV1fdbuGgZ' });
+  const WEB3FORMS_KEY = 'c8c8f1f3-4fd2-4e99-bdc4-45e4c10acc95';
 
-  const contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (event) {
-      event.preventDefault();
+  const form = document.getElementById('contact-form');
+  if (form) {
+    const isEnglish = document.documentElement.lang === 'en';
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const errorEl = document.getElementById('form-error');
+    const successEl = document.getElementById('form-success');
 
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.innerText;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (errorEl) errorEl.hidden = true;
 
-      submitBtn.innerText = 'Sūta...';
+      const formData = new FormData(form);
+      formData.append('access_key', WEB3FORMS_KEY);
+
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = isEnglish ? 'Sending...' : 'Sūta...';
       submitBtn.disabled = true;
+      submitBtn.classList.add('btn--sending');
 
-      const params = {
-        name:    contactForm.querySelector('[name="name"]').value,
-        email:   contactForm.querySelector('[name="email"]').value,
-        plan:    (contactForm.querySelector('[name="plan"]:checked') || {}).value || '',
-        message: contactForm.querySelector('[name="message"]').value,
-      };
-
-      emailjs.send('service_tb4qksd', 'template_pevx3eu', params)
-        .then(() => {
-          alert('Paldies! Ziņa ir nosūtīta veiksmīgi.');
-          contactForm.reset();
-        })
-        .catch((error) => {
-          console.error('EmailJS kļūda:', error);
-          alert('Ups! Kaut kas nogāja greizi. Lūdzu, mēģiniet vēlreiz vēlāk.');
-        })
-        .finally(() => {
-          submitBtn.innerText = originalBtnText;
-          submitBtn.disabled = false;
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData,
         });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          form.hidden = true;
+          if (successEl) successEl.hidden = false;
+        } else {
+          if (errorEl) {
+            const errorMessage = isEnglish ? 'Something went wrong. Please try again later.' : 'Kaut kas nogāja greizi. Lūdzu, mēģiniet vēlreiz vēlāk.';
+            errorEl.textContent = data.message || errorMessage;
+            errorEl.hidden = false;
+          }
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('btn--sending');
+        }
+      } catch {
+        if (errorEl) errorEl.hidden = false;
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('btn--sending');
+      }
     });
   }
-
 });

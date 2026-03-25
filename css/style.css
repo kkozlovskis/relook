@@ -820,6 +820,34 @@ button.btn-primary {
   margin-top: 0;
 }
 
+#contacts .container #form-success {
+  padding: 80px 0 40px;
+  animation: fadeUp var(--reveal-duration) ease both;
+}
+
+#contacts .container .form-error {
+  padding-top: 16px;
+  color: #c0392b;
+  font-size: 14px;
+  margin-top: 12px;
+  text-align: right;
+}
+
+@keyframes btnPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+.btn.btn-primary.btn--sending,
+.btn.btn-primary.btn--sending:hover,
+.btn.btn-primary.btn--sending:focus {
+  background-color: #0e9088;
+  box-shadow: 0 6px 14px rgba(30, 178, 166, 0.2);
+  transform: none;
+  cursor: not-allowed;
+  animation: btnPulse 1.2s ease-in-out infinite;
+}
+
 .footer-section {
   background-color: #12AEA1;
   color: #FFFFFF;
